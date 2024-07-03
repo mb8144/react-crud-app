@@ -48,17 +48,12 @@ export async function updatePost(post) {
   return data;
 }
 
-export async function deletePost(post) {
-    const response = await fetch(`${URL}/posts/${post.id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
+export async function deletePost(id) {
+    const response = await fetch(`${URL}/posts/${id}`, {
+        method: "DELETE"
+    })
+
     if (!response.ok) {
-      return Promise.reject(response.statusText);
+        throw new Error("An error occured while fetching")
     }
-    const data = await response.json();
-    return data;
-  }
+}

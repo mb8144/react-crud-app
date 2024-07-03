@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Post({ posts }) {
   return (
     <>
@@ -12,6 +14,9 @@ export default function Post({ posts }) {
             </div>
             <div className="collapse-content">
               <p>{post.text}</p>
+            </div>
+            <div>
+                <Link href={`/posts/${post.id}`}>See more</Link>
             </div>
           </div>
         ))}

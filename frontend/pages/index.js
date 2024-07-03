@@ -1,9 +1,10 @@
+import PostForm from "@/components/PostForm";
+
 export default function IndexPage() {
   return (
     <div>
       <h1>Welcome to my blog!</h1>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <p className="text-xl text-red-500">sdf</p>
+      <PostForm />
     </div>
   );
 }

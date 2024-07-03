@@ -66,19 +66,19 @@ export default function PostForm({ postToEdit }) {
       try {
         updatePost(post);
         setPost(post);
-      } catch {
-        console.log("asdf");
+      } catch(e) {
+        console.error(e);
       }
     } else {
       try {
         createPost(post);
         setPost(post);
-      } catch {
-        console.log("creating did not work");
+      } catch(e){
+        console.error(e);
       }
     }
     setIsLoading(false);
-    // router.push(`${URL}/posts/${post.id}`);
+    router.push(`${URL}/posts/${post.id}`);
   };
 
   return (

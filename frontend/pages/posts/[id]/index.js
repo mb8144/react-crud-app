@@ -23,6 +23,8 @@ export default function PostPage() {
   const handleDelete = async () => {
     try {
       await deletePost(post.id);
+      alert('post deleted successfully');
+      router.push('/')
     } catch (e) {
       console.error(e);
     }

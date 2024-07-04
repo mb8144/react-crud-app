@@ -64,21 +64,22 @@ export default function PostForm({ postToEdit }) {
 
     if (post.id) {
       try {
-        updatePost(post);
+        await updatePost(post);
         setPost(post);
       } catch(e) {
         console.error(e);
       }
     } else {
       try {
-        createPost(post);
-        setPost(post);
+        const newPost = await createPost(post);
+        setPost(newPost);
+        router.push(`${URL}/posts/${post.id}`);
       } catch(e){
         console.error(e);
       }
     }
     setIsLoading(false);
-    router.push(`${URL}/posts/${post.id}`);
+    
   };
 
   return (

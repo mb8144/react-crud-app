@@ -1,10 +1,12 @@
 import { getPostById, deletePost } from "@/lib/api/posts";
+import { useSession } from "@/lib/hooks/session";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function PostPage() {
   const router = useRouter();
   const { id } = router.query;
+  const { session, isSignedIn, signIn, signOut } = useSession();
   const [post, setPost] = useState([]);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export default function PostPage() {
 
   const handleDelete = async () => {
     try {
-      await deletePost(post.id);
+      await deletePost(post.id, session.token);
       alert('post deleted successfully');
       router.push('/')
     } catch (e) {

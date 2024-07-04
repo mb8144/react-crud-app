@@ -116,3 +116,18 @@ export default function PostsEditPage() {
     </div>
   );
 }
+
+// export async function getStaticProps(context) {
+//   return {
+//       props: {
+//           secured: true
+//       }
+//   }
+// }
+
+// export async function getStaticPaths(context) {
+//   return {
+//       fallback: true,
+//       paths: []
+//   }
+// }

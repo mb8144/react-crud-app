@@ -18,11 +18,12 @@ export async function getPostById(id) {
   return data;
 }
 
-export async function createPost(post) {
+export async function createPost(post, token) {
   const response = await fetch(`${URL}/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(post),
   });
@@ -48,12 +49,16 @@ export async function updatePost(post) {
   return data;
 }
 
-export async function deletePost(id) {
-    const response = await fetch(`${URL}/posts/${id}`, {
-        method: "DELETE"
-    })
+export async function deletePost(id, token) {
+  const response = await fetch(`${URL}/posts/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+  });
 
-    if (!response.ok) {
-        throw new Error("An error occured while fetching")
-    }
+  if (!response.ok) {
+    throw new Error("An error occured while fetching");
+  }
 }

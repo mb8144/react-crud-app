@@ -2,6 +2,7 @@ import { createPost, getPostById, updatePost } from "@/lib/api/posts";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "./PostForm.module.css";
+import { useSession } from "@/lib/hooks/session";
 
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -33,11 +34,18 @@ function validateModel(post) {
 
 export default function PostForm({ postToEdit }) {
   const router = useRouter();
+  const { session, isSignedIn, signIn, signOut } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState(defaultModel);
   const [post, setPost] = useState(defaultModel);
 
-  useEffect(() => {}, [postToEdit]);
+  // refactoring: useEffect below only when edit and create in same component
+  // best practice: use PostForm again in create.js
+  useEffect(() => {
+    if (postToEdit) {
+      setPost(postToEdit);
+    }
+  }, [postToEdit]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -66,20 +74,20 @@ export default function PostForm({ postToEdit }) {
       try {
         await updatePost(post);
         setPost(post);
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
     } else {
       try {
-        const newPost = await createPost(post);
+        const newPost = await createPost(post, session.token);
         setPost(newPost);
-        router.push(`${URL}/posts/${post.id}`);
-      } catch(e){
+        // id is undefined
+        router.push(`/posts/${post.id}`);
+      } catch (e) {
         console.error(e);
       }
     }
     setIsLoading(false);
-    
   };
 
   return (

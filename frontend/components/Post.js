@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/formatDate";
 import Link from "next/link";
 
 export default function Post({ posts }) {
@@ -11,7 +12,7 @@ export default function Post({ posts }) {
             className="collapse collapse-open border-base-300 bg-base-200 border"
           >
             <div className="collapse-title text-xl font-medium">
-              {post.title}
+              {post.title} - {formatDate(post.createdAt)}
             </div>
             <div className="collapse-content">
               <p>{post.text}</p>

@@ -1,17 +1,22 @@
-import Header from "@/components/Header"
-import Link from "next/link"
-import "./_app.css"
+import Header from "@/components/Header";
+import "./_app.css";
+import { useAuthRedirect } from "@/lib/hooks/authredirect";
+import { useSession } from "@/lib/hooks/session";
 
 export default function App({ Component, pageProps }) {
-    return (
-        <>
-            <Header>
-                
-            </Header>
+  const { isLoaded, isSignedIn } = useSession();
+  useAuthRedirect(pageProps);
 
-            <main className="page">
-                <Component {...pageProps} />
-            </main>
-        </>
+  return (
+    // isLoaded && (
+      <>
+        <Header></Header>
+
+        <main className="page">
+        <Component {...pageProps} />
+          {/* {(!pageProps.secured || isSignedIn) && <Component {...pageProps} />} */}
+        </main>
+      </>
     )
+  ;
 }

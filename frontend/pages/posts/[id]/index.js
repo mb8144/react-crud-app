@@ -29,7 +29,7 @@ export default function PostPage() {
   };
 
   const handleEdit = () => {
-    router.push(`/posts/edit/${id}`);
+    router.push(`/posts/${id}/edit`);
   };
 
   return (
